@@ -1,46 +1,88 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+// 타입 지정
+let sname: string='ee';
+sname='dd';
 
-In the project directory, you can run:
+// 배열
+let aname:string[] = ['123','eq'];
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+// 오브젝트
+// ? 사용하면 옵셔널(특정 속성이 선택 사항인 경우)
+let ob:{name?:string} = {name: 'kim'};
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+ob.name='lee';
 
-### `yarn test`
+// 여러가지 타입의 데이터가 들어올 수 있게 하려면 | 연산자(or 연산자)
+let name: string | number = 1233;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+// ! type 키워드 대신 interface 키워드로도 생성 가능
+// type 키워드를 통해 사용자 지정 타입 생성 가능
+// 타입명 작성할때는 대문자로 작성함
+type MyTy = string | number;
+let na: MyTy = 1234;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// type 에 자료형 대신 원하는 글자나 숫자를 넣으면 해당 변수에는 그 값만 넣을수 있다(literal type)
+type OnlyTy = 'kim' | 123;
+// let new1 : OnlyTy = 'lee'    // 타입오류
+let new1 : OnlyTy = 123;
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+//함수
+// 리턴값 타입 지정도 가능
+function myFx(x:number) : number{
+    return x*2;
+}
+// 리턴 타입으로 void 설정 가능(return이 있는지 없는지 체크할 수 있는 타입)
+myFx(123);
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+//지금 변수의 타입이 확실하지 않으면 마음대로 연산하지 않음(오류띄움)
+// function myFx2(y:number | string) {
+//     return y+2;
+// }
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+// 항상 타입이 무엇인지 알려줘야함
+function myFx2(y:number | string) {
+    if(typeof y ==='number')
+    return y+2;
+}
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+//array에 순서를 포함해서 어떤 자료들이 들어와야 한다 이런식 할때?
+type Members = [number, boolean];   // tuple 타입   [] 안에 들어올 자료의 타입을 차례로 적어준다
+let john: Members = [123, true];    // 반드시 이 순서로 자료형이 들어와야함
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+//object 자료형
+type Groups = {
+    // name: string;    // 특정 속성에 대한 자료형 지정
+    [key:string] : string | number;  // 글자로 된 모든 오브젝트 속성의 타입은 string 이여야 한다는 뜻
+    // 오브젝트 안에 어떤 속성이 들어갈지 아직 모르는 경우 그냥 싸잡아서 타입 지정(index signature)
+}
+
+let edward : Groups = {
+    name : ' ki', 
+    gender:'male',
+    age: 24,
+};
+
+
+//클래스도 타입 지정 가능
+class User {
+    name;   //! 다만, 클래스형에서는 미리 변수를 만들어둬야 함
+    constructor(name: string) {
+        this.name= name;
+    }
+}
+
+
+
+
+
+export {}
